@@ -2,5 +2,18 @@
   "name": "timecop",
   "version": "0.0.0",
   "description": "Display where Atom spends time",
-  "main": "./lib/timecop"
+  "main": "./lib/timecop",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atom/timecop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/atom/timecop/issues"
+  },
+  "engines": {
+    "atom": "*"
+  },
+  "publishConfig": {
+    "registry": "https://atom.iriscouch.com/registry/_design/app/_rewrite"
+  }
 }
