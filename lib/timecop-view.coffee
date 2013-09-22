@@ -47,7 +47,7 @@ class TimecopView extends View
           @span class: "inline-block #{highlightClass}", "#{pack.loadTime}ms"
     @loadingSummary.text """
       Loaded #{packageCount} packages in #{totalLoadTime}ms.
-      #{loadedPackages.length} packages took >= 5ms to load.
+      #{loadedPackages.length} packages took longer than 5ms to load.
     """
 
   showActivePackages: ->
@@ -68,7 +68,7 @@ class TimecopView extends View
           @span class: "inline-block #{highlightClass}", "#{pack.activateTime}ms"
     @activateSummary.text """
       Activated #{packageCount} packages in #{totalActivateTime}ms.
-      #{activePackages.length} packages took >= 5ms to activate.
+      #{activePackages.length} packages took longer than 5ms to activate.
     """
 
   serialize: ->
