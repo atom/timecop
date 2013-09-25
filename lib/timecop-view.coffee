@@ -3,7 +3,7 @@
 module.exports =
 class TimecopView extends View
   @content: ->
-    @div class: 'timecop pane-item tool-panel', =>
+    @div class: 'timecop pane-item', tabindex: -1, =>
       @div class: 'tool-panel padded', =>
         @div class: 'inset-panel', =>
           @div class: 'panel-heading', 'Package Loading'
