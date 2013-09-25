@@ -1,7 +1,7 @@
-{_, $$, View} = require 'atom'
+{_, $$, ScrollView} = require 'atom'
 
 module.exports =
-class TimecopView extends View
+class TimecopView extends ScrollView
   @content: ->
     @div class: 'timecop pane-item', tabindex: -1, =>
       @div class: 'tool-panel padded', =>
@@ -16,59 +16,90 @@ class TimecopView extends View
           @div class: 'inset-panel', =>
             @div class: 'panel-heading', 'Package Activation'
             @div class: 'panel-body padded', =>
-              @div class: 'text-info', outlet: 'activateSummary'
-              @ul class: 'list-group', outlet: 'activateArea'
+              @div class: 'text-info', outlet: 'packageActivateSummary'
+              @ul class: 'list-group', outlet: 'packageActivateArea'
+
+      @div class: 'tool-panel padded', =>
+        @div class: 'panel', =>
+          @div class: 'inset-panel', =>
+            @div class: 'panel-heading', 'Theme Loading'
+            @div class: 'panel-body padded', =>
+              @div class: 'text-info', outlet: 'themeLoadingSummary'
+              @ul class: 'list-group', outlet: 'themeLoadingArea'
+
+      @div class: 'tool-panel padded', =>
+        @div class: 'panel', =>
+          @div class: 'inset-panel', =>
+            @div class: 'panel-heading', 'Theme Activation'
+            @div class: 'panel-body padded', =>
+              @div class: 'text-info', outlet: 'themeActivateSummary'
+              @ul class: 'list-group', outlet: 'themeActivateArea'
 
   initialize: ({@uri}) ->
     if atom.getActivePackages().length > 0
-      @showLoadedPackages()
-      @showActivePackages()
+      @populateViews()
     else
       # Render on next tick so packages have been activated
-      _.nextTick =>
-        @showLoadedPackages()
-        @showActivePackages()
+      _.nextTick => @populateViews()
+
+  populateViews: ->
+    @showLoadedPackages()
+    @showActivePackages()
+    @showLoadedThemes()
+    @showActiveThemes()
+
+  getSlowPackages: (packages, timeKey) ->
+    time = 0
+    count = 0
+    packages = packages.filter (pack) ->
+      time += pack[timeKey]
+      count++
+      pack[timeKey] > 5
+    packages.sort (pack1, pack2) -> pack2[timeKey] - pack1[timeKey]
+    {time, count, packages}
+
+  createPackageView: (pack, timeKey) ->
+    $$ ->
+      @li class: 'list-item', =>
+        @span class: 'inline-block', pack.name
+        highlightClass = 'highlight-warning'
+        highlightClass = 'highlight-error' if pack[timeKey] > 25
+        @span class: "inline-block #{highlightClass}", "#{pack[timeKey]}ms"
 
   showLoadedPackages: ->
-    totalLoadTime = 0
-    packageCount = 0
-    loadedPackages = atom.getLoadedPackages().filter ({loadTime}) ->
-      totalLoadTime += loadTime
-      packageCount++
-      loadTime > 5
-
-    loadedPackages.sort (pack1, pack2) -> pack2.loadTime - pack1.loadTime
-    for pack in loadedPackages
-      @loadingArea.append $$ ->
-        @li class: 'list-item', =>
-          @span class: 'inline-block', pack.name
-          highlightClass = 'highlight-warning'
-          highlightClass = 'highlight-error' if pack.loadTime > 25
-          @span class: "inline-block #{highlightClass}", "#{pack.loadTime}ms"
+    {time, count, packages} = @getSlowPackages(atom.getLoadedPackages(), 'loadTime')
+    for pack in packages
+      @loadingArea.append(@createPackageView(pack, 'loadTime'))
     @loadingSummary.text """
-      Loaded #{packageCount} packages in #{totalLoadTime}ms.
-      #{loadedPackages.length} packages took longer than 5ms to load.
+      Loaded #{count} packages in #{time}ms.
+      #{packages.length} packages took longer than 5ms to load.
     """
 
   showActivePackages: ->
-    totalActivateTime = 0
-    packageCount = 0
-    activePackages = atom.getActivePackages().filter ({activateTime}) ->
-      totalActivateTime += activateTime
-      packageCount++
-      activateTime > 5
+    {time, count, packages} = @getSlowPackages(atom.getActivePackages(), 'activateTime')
+    for pack in packages
+      @packageActivateArea.append(@createPackageView(pack, 'activateTime'))
+    @packageActivateSummary.text """
+      Activated #{count} packages in #{time}ms.
+      #{packages.length} packages took longer than 5ms to activate.
+    """
 
-    activePackages.sort (pack1, pack2) -> pack2.activateTime - pack1.activateTime
-    for pack in activePackages
-      @activateArea.append $$ ->
-        @li class: 'list-item', =>
-          @span class: 'inline-block', pack.name
-          highlightClass = 'highlight-warning'
-          highlightClass = 'highlight-error' if pack.activateTime > 25
-          @span class: "inline-block #{highlightClass}", "#{pack.activateTime}ms"
-    @activateSummary.text """
-      Activated #{packageCount} packages in #{totalActivateTime}ms.
-      #{activePackages.length} packages took longer than 5ms to activate.
+  showLoadedThemes: ->
+    {time, count, packages} = @getSlowPackages(atom.themes.getLoadedThemes(), 'loadTime')
+    for pack in packages
+      @themeLoadingArea.append(@createPackageView(pack, 'loadTime'))
+    @themeLoadingSummary.text """
+      Loaded #{count} themes in #{time}ms.
+      #{packages.length} themes took longer than 5ms to load.
+    """
+
+  showActiveThemes: ->
+    {time, count, packages} = @getSlowPackages(atom.themes.getActiveThemes(), 'activateTime')
+    for pack in packages
+      @themeActivateArea.append(@createPackageView(pack, 'activateTime'))
+    @themeActivateSummary.text """
+      Activated #{count} packages in #{time}ms.
+      #{packages.length} packages took longer than 5ms to activate.
     """
 
   serialize: ->
