@@ -1,4 +1,4 @@
-{_, ScrollView} = require 'atom'
+{ScrollView} = require 'atom'
 PackagePanelView = require './package-panel-view'
 
 module.exports =
@@ -15,7 +15,7 @@ class TimecopView extends ScrollView
       @populateViews()
     else
       # Render on next tick so packages have been activated
-      _.nextTick => @populateViews()
+      setImmediate => @populateViews()
 
   populateViews: ->
     @showLoadedPackages()
