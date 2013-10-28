@@ -61,8 +61,8 @@ class TimecopView extends ScrollView
     {time, count, packages} = @getSlowPackages(atom.themes.getActiveThemes(), 'activateTime')
     @themeActivationPanel.addPackages(packages, 'activateTime')
     @themeActivationPanel.summary.text """
-      Activated #{count} packages in #{time}ms.
-      #{packages.length} packages took longer than 5ms to activate.
+      Activated #{count} themes in #{time}ms.
+      #{packages.length} themes took longer than 5ms to activate.
     """
 
   serialize: ->
