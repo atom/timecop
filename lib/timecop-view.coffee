@@ -34,7 +34,8 @@ class TimecopView extends ScrollView
     {time, count, packages}
 
   showLoadedPackages: ->
-    {time, count, packages} = @getSlowPackages(atom.getLoadedPackages(), 'loadTime')
+    packages = atom.getLoadedPackages().filter (pack) -> pack.getType() isnt 'theme'
+    {time, count, packages} = @getSlowPackages(packages, 'loadTime')
     @packageLoadingPanel.addPackages(packages, 'loadTime')
     @packageLoadingPanel.summary.text """
       Loaded #{count} packages in #{time}ms.
@@ -42,7 +43,8 @@ class TimecopView extends ScrollView
     """
 
   showActivePackages: ->
-    {time, count, packages} = @getSlowPackages(atom.getActivePackages(), 'activateTime')
+    packages = atom.getActivePackages().filter (pack) -> pack.getType() isnt 'theme'
+    {time, count, packages} = @getSlowPackages(packages, 'activateTime')
     @packageActivationPanel.addPackages(packages, 'activateTime')
     @packageActivationPanel.summary.text """
       Activated #{count} packages in #{time}ms.
