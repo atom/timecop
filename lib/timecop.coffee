@@ -5,13 +5,13 @@ createView = (state) ->
   TimecopView ?= require './timecop-view'
   new TimecopView(state)
 
-registerDeserializer
+atom.deserializers.add
   name: 'TimecopView'
   deserialize: (state) -> createView(state)
 
 module.exports =
   activate: ->
-    project.registerOpener (filePath) ->
+    atom.project.registerOpener (filePath) ->
       createView(uri: viewUri) if filePath is viewUri
 
-    rootView.command 'timecop:view', -> rootView.open(viewUri)
+    atom.rootView.command 'timecop:view', -> atom.rootView.open(viewUri)

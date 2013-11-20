@@ -11,7 +11,7 @@ class TimecopView extends ScrollView
       @subview 'themeActivationPanel', new PackagePanelView('Theme Activation')
 
   initialize: ({@uri}) ->
-    if atom.getActivePackages().length > 0
+    if atom.packages.getActivePackages().length > 0
       @populateViews()
     else
       # Render on next tick so packages have been activated
@@ -34,7 +34,8 @@ class TimecopView extends ScrollView
     {time, count, packages}
 
   showLoadedPackages: ->
-    packages = atom.getLoadedPackages().filter (pack) -> pack.getType() isnt 'theme'
+    packages = atom.packages.getLoadedPackages().filter (pack) ->
+      pack.getType() isnt 'theme'
     {time, count, packages} = @getSlowPackages(packages, 'loadTime')
     @packageLoadingPanel.addPackages(packages, 'loadTime')
     @packageLoadingPanel.summary.text """
@@ -43,7 +44,8 @@ class TimecopView extends ScrollView
     """
 
   showActivePackages: ->
-    packages = atom.getActivePackages().filter (pack) -> pack.getType() isnt 'theme'
+    packages = atom.packages.getActivePackages().filter (pack) ->
+      pack.getType() isnt 'theme'
     {time, count, packages} = @getSlowPackages(packages, 'activateTime')
     @packageActivationPanel.addPackages(packages, 'activateTime')
     @packageActivationPanel.summary.text """
