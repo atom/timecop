@@ -14,4 +14,4 @@ module.exports =
     atom.project.registerOpener (filePath) ->
       createView(uri: viewUri) if filePath is viewUri
 
-    atom.rootView.command 'timecop:view', -> atom.rootView.open(viewUri)
+    atom.workspaceView.command 'timecop:view', -> atom.workspaceView.open(viewUri)
