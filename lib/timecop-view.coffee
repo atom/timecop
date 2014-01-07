@@ -1,10 +1,12 @@
 {ScrollView} = require 'atom'
 PackagePanelView = require './package-panel-view'
+WindowPanelView = require './window-panel-view'
 
 module.exports =
 class TimecopView extends ScrollView
   @content: ->
     @div class: 'timecop pane-item', tabindex: -1, =>
+      @subview 'windowLoadingPanel', new WindowPanelView()
       @subview 'packageLoadingPanel', new PackagePanelView('Package Loading')
       @subview 'packageActivationPanel', new PackagePanelView('Package Activation')
       @subview 'themeLoadingPanel', new PackagePanelView('Theme Loading')
@@ -18,6 +20,7 @@ class TimecopView extends ScrollView
       setImmediate => @populateViews()
 
   populateViews: ->
+    @windowLoadingPanel.populate()
     @showLoadedPackages()
     @showActivePackages()
     @showLoadedThemes()
