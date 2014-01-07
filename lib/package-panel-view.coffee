@@ -3,7 +3,7 @@
 module.exports =
 class PackagePanelView extends View
   @content: (title) ->
-    @div class: 'tool-panel padded', =>
+    @div class: 'tool-panel padded package-panel', =>
       @div class: 'inset-panel', =>
         @div class: 'panel-heading', title
         @div class: 'panel-body padded', =>

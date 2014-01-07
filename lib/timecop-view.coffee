@@ -7,10 +7,11 @@ class TimecopView extends ScrollView
   @content: ->
     @div class: 'timecop pane-item', tabindex: -1, =>
       @subview 'windowLoadingPanel', new WindowPanelView()
-      @subview 'packageLoadingPanel', new PackagePanelView('Package Loading')
-      @subview 'packageActivationPanel', new PackagePanelView('Package Activation')
-      @subview 'themeLoadingPanel', new PackagePanelView('Theme Loading')
-      @subview 'themeActivationPanel', new PackagePanelView('Theme Activation')
+      @div class: 'panels', =>
+        @subview 'packageLoadingPanel', new PackagePanelView('Package Loading')
+        @subview 'packageActivationPanel', new PackagePanelView('Package Activation')
+        @subview 'themeLoadingPanel', new PackagePanelView('Theme Loading')
+        @subview 'themeActivationPanel', new PackagePanelView('Theme Activation')
 
   initialize: ({@uri}) ->
     if atom.packages.getActivePackages().length > 0
