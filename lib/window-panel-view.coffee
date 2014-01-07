@@ -6,4 +6,4 @@ class WindowPanelView extends View
     @h5 class: 'overview text-highlight'
 
   populate:  ->
-    @text("This window loaded in #{atom.getWindowLoadTime()}ms")
+    @text("This window took #{atom.getWindowLoadTime()}ms to load.")
