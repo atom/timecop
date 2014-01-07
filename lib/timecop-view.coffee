@@ -1,4 +1,4 @@
-{ScrollView} = require 'atom'
+{_, ScrollView} = require 'atom'
 PackagePanelView = require './package-panel-view'
 WindowPanelView = require './window-panel-view'
 
@@ -43,7 +43,7 @@ class TimecopView extends ScrollView
     @packageLoadingPanel.addPackages(packages, 'loadTime')
     @packageLoadingPanel.summary.text """
       Loaded #{count} packages in #{time}ms.
-      #{packages.length} packages took longer than 5ms to load.
+      #{_.pluralize(packages.length, 'package')} took longer than 5ms to load.
     """
 
   showActivePackages: ->
@@ -53,7 +53,7 @@ class TimecopView extends ScrollView
     @packageActivationPanel.addPackages(packages, 'activateTime')
     @packageActivationPanel.summary.text """
       Activated #{count} packages in #{time}ms.
-      #{packages.length} packages took longer than 5ms to activate.
+      #{_.pluralize(packages.lenght, 'package')} took longer than 5ms to activate.
     """
 
   showLoadedThemes: ->
@@ -61,7 +61,7 @@ class TimecopView extends ScrollView
     @themeLoadingPanel.addPackages(packages, 'loadTime')
     @themeLoadingPanel.summary.text """
       Loaded #{count} themes in #{time}ms.
-      #{packages.length} themes took longer than 5ms to load.
+      #{_.pluralize(packages.length, 'theme')} took longer than 5ms to load.
     """
 
   showActiveThemes: ->
@@ -69,7 +69,7 @@ class TimecopView extends ScrollView
     @themeActivationPanel.addPackages(packages, 'activateTime')
     @themeActivationPanel.summary.text """
       Activated #{count} themes in #{time}ms.
-      #{packages.length} themes took longer than 5ms to activate.
+      #{_.pluralize(packages.length, 'theme')} took longer than 5ms to activate.
     """
 
   serialize: ->
