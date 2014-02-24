@@ -4,6 +4,7 @@
   "description": "Display where Atom spends time",
   "main": "./lib/timecop",
   "repository": "https://github.com/atom/timecop",
+  "license": "MIT",
   "engines": {
     "atom": "*"
   },
