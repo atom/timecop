@@ -1,4 +1,5 @@
-{_, ScrollView} = require 'atom'
+_ = require 'underscore-plus'
+{ScrollView} = require 'atom'
 PackagePanelView = require './package-panel-view'
 WindowPanelView = require './window-panel-view'
 
