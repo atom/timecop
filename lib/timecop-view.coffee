@@ -55,7 +55,7 @@ class TimecopView extends ScrollView
     @packageActivationPanel.addPackages(packages, 'activateTime')
     @packageActivationPanel.summary.text """
       Activated #{count} packages in #{time}ms.
-      #{_.pluralize(packages.lenght, 'package')} took longer than 5ms to activate.
+      #{_.pluralize(packages.length, 'package')} took longer than 5ms to activate.
     """
 
   showLoadedThemes: ->
