@@ -11,7 +11,7 @@ atom.deserializers.add
 
 module.exports =
   activate: ->
-    atom.project.registerOpener (filePath) ->
+    atom.workspace.registerOpener (filePath) ->
       createView(uri: viewUri) if filePath is viewUri
 
     atom.workspaceView.command 'timecop:view', -> atom.workspaceView.open(viewUri)
