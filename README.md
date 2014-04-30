@@ -1,4 +1,4 @@
-# Timecop package
+# Timecop package [![Build Status](https://travis-ci.org/atom/timecop.svg?branch=master)](https://travis-ci.org/atom/timecop)
 
 Displays information about where time is spent while Atom loads.
 
