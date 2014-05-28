@@ -6,7 +6,7 @@ WindowPanelView = require './window-panel-view'
 module.exports =
 class TimecopView extends ScrollView
   @content: ->
-    @div class: 'timecop pane-item', tabindex: -1, =>
+    @div class: 'timecop pane-item native-key-bindings', tabindex: -1, =>
       @subview 'windowLoadingPanel', new WindowPanelView()
       @div class: 'panels', =>
         @subview 'packageLoadingPanel', new PackagePanelView('Package Loading')
