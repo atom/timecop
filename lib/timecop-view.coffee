@@ -81,3 +81,5 @@ class TimecopView extends ScrollView
   getUri: -> @uri
 
   getTitle: -> 'Timecop'
+
+  getIconName: -> 'dashboard'
