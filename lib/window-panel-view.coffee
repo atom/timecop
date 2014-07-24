@@ -21,6 +21,12 @@ class WindowPanelView extends View
           @span class: 'inline-block', 'Project load time'
           @span class: 'inline-block', outlet: 'projectLoadTime'
 
+  initialize: ->
+    @windowTiming.children().setTooltip('The time taken to load this window')
+    @shellTiming.children().setTooltip('The time taken to launch the app')
+    @workspaceTiming.children().setTooltip('The time taken to rebuild the prevoiusly opened editors')
+    @projectTiming.children().setTooltip('The time taken to rebuild the previously opened buffers')
+
   updateWindowLoadTime: ->
     time = atom.getWindowLoadTime()
     @windowLoadTime.addClass(@getHighlightClass(time))
