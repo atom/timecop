@@ -4,16 +4,20 @@ module.exports =
 class WindowPanelView extends View
   @content: ->
     @div class: 'padded', =>
-      @div =>
+      @div class: 'timing', outlet: 'windowTiming', =>
         @span class: 'inline-block', 'Window load time'
         @span class: 'inline-block', outlet: 'windowLoadTime'
 
+      @div class: 'timing', outlet: 'shellTiming', =>
+        @span class: 'inline-block', 'Shell load time'
+        @span class: 'inline-block', outlet: 'shellLoadTime'
+
       @div outlet: 'deserializeTimings', =>
-        @div class: 'deserialize-timing', =>
+        @div class: 'timing', outlet: 'workspaceTiming', =>
           @span class: 'inline-block', 'Workspace load time'
           @span class: 'inline-block', outlet: 'workspaceLoadTime'
 
-        @div =>
+        @div class: 'timing', outlet: 'projectTiming', =>
           @span class: 'inline-block', 'Project load time'
           @span class: 'inline-block', outlet: 'projectLoadTime'
 
@@ -21,6 +25,13 @@ class WindowPanelView extends View
     time = atom.getWindowLoadTime()
     @windowLoadTime.addClass(@getHighlightClass(time))
     @windowLoadTime.text("#{time}ms")
+
+    {shellLoadTime} = atom.getLoadSettings()
+    if shellLoadTime?
+      @shellLoadTime.addClass(@getHighlightClass(shellLoadTime))
+      @shellLoadTime.text("#{shellLoadTime}ms")
+    else
+      @shellTiming.hide()
 
     if atom.deserializeTimings?
       @workspaceLoadTime.addClass(@getHighlightClass(atom.deserializeTimings.workspace))
@@ -38,5 +49,5 @@ class WindowPanelView extends View
     else
       'highlight-info'
 
-  populate:  ->
+  populate: ->
     @updateWindowLoadTime()
