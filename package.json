@@ -2,7 +2,7 @@
   "name": "timecop",
   "version": "0.22.0",
   "description": "Displays information about where time is spent while Atom loads.",
-  "main": "./lib/timecop",
+  "main": "./lib/main",
   "repository": "https://github.com/atom/timecop",
   "license": "MIT",
   "engines": {
