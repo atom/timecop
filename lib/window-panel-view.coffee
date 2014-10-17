@@ -21,11 +21,16 @@ class WindowPanelView extends View
           @span class: 'inline-block', 'Project load time'
           @span class: 'inline-block', outlet: 'projectLoadTime'
 
+        @div class: 'timing', outlet: 'atomTiming', =>
+          @span class: 'inline-block', 'Window state load time'
+          @span class: 'inline-block', outlet: 'atomLoadTime'
+
   initialize: ->
     @windowTiming.children().setTooltip('The time taken to load this window')
     @shellTiming.children().setTooltip('The time taken to launch the app')
     @workspaceTiming.children().setTooltip('The time taken to rebuild the prevoiusly opened editors')
     @projectTiming.children().setTooltip('The time taken to rebuild the previously opened buffers')
+    @atomTiming.children().setTooltip('The time taken to read and parse the stored window state')
 
   updateWindowLoadTime: ->
     time = atom.getWindowLoadTime()
@@ -44,6 +49,8 @@ class WindowPanelView extends View
       @workspaceLoadTime.text("#{atom.deserializeTimings.workspace}ms")
       @projectLoadTime.addClass(@getHighlightClass(atom.deserializeTimings.project))
       @projectLoadTime.text("#{atom.deserializeTimings.project}ms")
+      @atomLoadTime.addClass(@getHighlightClass(atom.deserializeTimings.atom))
+      @atomLoadTime.text("#{atom.deserializeTimings.atom}ms")
     else
       @deserializeTimings.hide()
 
