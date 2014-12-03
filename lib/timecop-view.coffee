@@ -1,5 +1,6 @@
 _ = require 'underscore-plus'
-{ScrollView} = require 'atom'
+{Disposable} = require 'atom'
+{ScrollView} = require 'atom-space-pen-views'
 PackagePanelView = require './package-panel-view'
 WindowPanelView = require './window-panel-view'
 
@@ -14,6 +15,9 @@ class TimecopView extends ScrollView
           @subview 'packageActivationPanel', new PackagePanelView('Package Activation')
           @subview 'themeLoadingPanel', new PackagePanelView('Theme Loading')
           @subview 'themeActivationPanel', new PackagePanelView('Theme Activation')
+
+  onDidChangeTitle: -> new Disposable ->
+  onDidChangeModified: -> new Disposable ->
 
   initialize: ({@uri}) ->
     if atom.packages.getActivePackages().length > 0

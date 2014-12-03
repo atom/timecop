@@ -1,4 +1,4 @@
-{View} = require 'atom'
+{View} = require 'atom-space-pen-views'
 
 module.exports =
 class WindowPanelView extends View
@@ -26,11 +26,11 @@ class WindowPanelView extends View
           @span class: 'inline-block', outlet: 'atomLoadTime'
 
   initialize: ->
-    @windowTiming.children().setTooltip('The time taken to load this window')
-    @shellTiming.children().setTooltip('The time taken to launch the app')
-    @workspaceTiming.children().setTooltip('The time taken to rebuild the prevoiusly opened editors')
-    @projectTiming.children().setTooltip('The time taken to rebuild the previously opened buffers')
-    @atomTiming.children().setTooltip('The time taken to read and parse the stored window state')
+    atom.tooltips.add(@windowTiming[0], title: 'The time taken to load this window')
+    atom.tooltips.add(@shellTiming[0], title: 'The time taken to launch the app')
+    atom.tooltips.add(@workspaceTiming[0], title: 'The time taken to rebuild the prevoiusly opened editors')
+    atom.tooltips.add(@projectTiming[0], title: 'The time taken to rebuild the previously opened buffers')
+    atom.tooltips.add(@atomTiming[0], title: 'The time taken to read and parse the stored window state')
 
   updateWindowLoadTime: ->
     time = atom.getWindowLoadTime()
