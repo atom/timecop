@@ -1,6 +1,7 @@
 TimecopView = null
 
-viewUri = 'atom://timecop'
+ViewUri = 'atom://timecop'
+
 createView = (state) ->
   TimecopView ?= require './timecop-view'
   new TimecopView(state)
@@ -12,6 +13,7 @@ atom.deserializers.add
 module.exports =
   activate: ->
     atom.workspace.registerOpener (filePath) ->
-      createView(uri: viewUri) if filePath is viewUri
+      createView(uri: ViewUri) if filePath is ViewUri
 
-    atom.workspaceView.command 'timecop:view', -> atom.workspaceView.open(viewUri)
+    atom.commands.add 'atom-workspace', 'timecop:view', ->
+      atom.workspace.open(ViewUri)
