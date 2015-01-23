@@ -1,6 +1,7 @@
 _ = require 'underscore-plus'
 {Disposable} = require 'atom'
 {ScrollView} = require 'atom-space-pen-views'
+CachePanelView = require './cache-panel-view'
 PackagePanelView = require './package-panel-view'
 WindowPanelView = require './window-panel-view'
 
@@ -9,7 +10,9 @@ class TimecopView extends ScrollView
   @content: ->
     @div class: 'timecop pane-item native-key-bindings', tabindex: -1, =>
       @div class: 'timecop-panel', =>
-        @subview 'windowLoadingPanel', new WindowPanelView()
+        @div class: 'panels', =>
+          @subview 'windowLoadingPanel', new WindowPanelView()
+          @subview 'cacheLoadingPanel', new CachePanelView()
         @div class: 'panels', =>
           @subview 'packageLoadingPanel', new PackagePanelView('Package Loading')
           @subview 'packageActivationPanel', new PackagePanelView('Package Activation')
@@ -28,6 +31,7 @@ class TimecopView extends ScrollView
 
   populateViews: ->
     @windowLoadingPanel.populate()
+    @cacheLoadingPanel.populate()
     @showLoadedPackages()
     @showActivePackages()
     @showLoadedThemes()

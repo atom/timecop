@@ -3,27 +3,30 @@
 module.exports =
 class WindowPanelView extends View
   @content: ->
-    @div class: 'padded', =>
-      @div class: 'timing', outlet: 'windowTiming', =>
-        @span class: 'inline-block', 'Window load time'
-        @span class: 'inline-block', outlet: 'windowLoadTime'
+    @div class: 'tool-panel padded package-panel', =>
+      @div class: 'inset-panel', =>
+        @div class: 'panel-heading', 'Startup Time'
+        @div class: 'panel-body padded', =>
+          @div class: 'timing', outlet: 'windowTiming', =>
+            @span class: 'inline-block', 'Window load time'
+            @span class: 'inline-block', outlet: 'windowLoadTime'
 
-      @div class: 'timing', outlet: 'shellTiming', =>
-        @span class: 'inline-block', 'Shell load time'
-        @span class: 'inline-block', outlet: 'shellLoadTime'
+          @div class: 'timing', outlet: 'shellTiming', =>
+            @span class: 'inline-block', 'Shell load time'
+            @span class: 'inline-block', outlet: 'shellLoadTime'
 
-      @div outlet: 'deserializeTimings', =>
-        @div class: 'timing', outlet: 'workspaceTiming', =>
-          @span class: 'inline-block', 'Workspace load time'
-          @span class: 'inline-block', outlet: 'workspaceLoadTime'
+          @div outlet: 'deserializeTimings', =>
+            @div class: 'timing', outlet: 'workspaceTiming', =>
+              @span class: 'inline-block', 'Workspace load time'
+              @span class: 'inline-block', outlet: 'workspaceLoadTime'
 
-        @div class: 'timing', outlet: 'projectTiming', =>
-          @span class: 'inline-block', 'Project load time'
-          @span class: 'inline-block', outlet: 'projectLoadTime'
+            @div class: 'timing', outlet: 'projectTiming', =>
+              @span class: 'inline-block', 'Project load time'
+              @span class: 'inline-block', outlet: 'projectLoadTime'
 
-        @div class: 'timing', outlet: 'atomTiming', =>
-          @span class: 'inline-block', 'Window state load time'
-          @span class: 'inline-block', outlet: 'atomLoadTime'
+            @div class: 'timing', outlet: 'atomTiming', =>
+              @span class: 'inline-block', 'Window state load time'
+              @span class: 'inline-block', outlet: 'atomLoadTime'
 
   initialize: ->
     atom.tooltips.add(@windowTiming[0], title: 'The time taken to load this window')
