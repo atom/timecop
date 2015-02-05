@@ -13,6 +13,10 @@ class CachePanelView extends View
             @span class: 'inline-block highlight-info', outlet: 'coffeeCompileCount'
 
           @div class: 'timing', =>
+            @span class: 'inline-block', '6to5 files compiled'
+            @span class: 'inline-block highlight-info', outlet: 'to5CompileCount'
+
+          @div class: 'timing', =>
             @span class: 'inline-block', 'CSON files compiled'
             @span class: 'inline-block highlight-info', outlet: 'csonCompileCount'
 
@@ -25,6 +29,7 @@ class CachePanelView extends View
 
   populate: ->
     @coffeeCompileCount.text(@getCoffeeCompiles())
+    @to5CompileCount.text(@get6to5Compiles())
     @csonCompileCount.text(@getCsonCompiles())
     @lessCompileCount.text(@getLessCompiles())
 
@@ -33,6 +38,13 @@ class CachePanelView extends View
     try
       CoffeeCache = require(path.join(atom.getLoadSettings().resourcePath, 'src', 'coffee-cache'))
       cacheMisses = CoffeeCache.getCacheMisses?() ? 0
+    cacheMisses
+
+  get6to5Compiles: ->
+    cacheMisses = 0
+    try
+      To5Cache = require(path.join(atom.getLoadSettings().resourcePath, 'src', '6to5'))
+      cacheMisses = To5Cache.getCacheMisses?() ? 0
     cacheMisses
 
   getCsonCompiles: ->
