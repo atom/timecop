@@ -36,7 +36,7 @@ class CachePanelView extends View
   getCoffeeCompiles: ->
     cacheMisses = 0
     try
-      CoffeeCache = require(path.join(atom.getLoadSettings().resourcePath, 'src', 'coffee-cache'))
+      CoffeeCache = require(path.join(atom.getLoadSettings().resourcePath, 'node_modules', 'coffee-cash'))
       cacheMisses = CoffeeCache.getCacheMisses?() ? 0
     cacheMisses
 
