@@ -62,6 +62,6 @@ describe "Timecop", ->
       expect(loadingPanel.text()).not.toMatch(/fast-package/)
 
 class FakePackage
-  constructor: ({@name, @activateTime, @loadTime})->
+  constructor: ({@name, @activateTime, @loadTime}) ->
   getType: -> 'package'
   isTheme: -> false
