@@ -16,7 +16,9 @@ class PackagePanelView extends View
   addPackage: (pack, timeKey) ->
     @list.append $$ ->
       @li class: 'list-item', =>
-        @span class: 'inline-block', pack.name
+        homepage = pack.metadata?.homepage
+        homepage ?= "https://atom.io/packages/#{pack.name}"
+        @a class: 'inline-block', href: homepage, pack.name
         highlightClass = 'highlight-warning'
         highlightClass = 'highlight-error' if pack[timeKey] > 25
         @span class: "inline-block #{highlightClass}", "#{pack[timeKey]}ms"
