@@ -16,7 +16,12 @@ class PackagePanelView extends View
   addPackage: (pack, timeKey) ->
     @list.append $$ ->
       @li class: 'list-item', =>
-        @span class: 'inline-block', pack.name
+        @a class: 'inline-block package', 'data-package': pack.name, pack.name
         highlightClass = 'highlight-warning'
         highlightClass = 'highlight-error' if pack[timeKey] > 25
         @span class: "inline-block #{highlightClass}", "#{pack[timeKey]}ms"
+
+  initialize: ->
+    @on 'click', 'a.package', ->
+      packageName = this.dataset['package']
+      atom.workspace.open("atom://config/packages/#{packageName}")
