@@ -31,7 +31,7 @@ class WindowPanelView extends View
   initialize: ->
     atom.tooltips.add(@windowTiming[0], title: 'The time taken to load this window')
     atom.tooltips.add(@shellTiming[0], title: 'The time taken to launch the app')
-    atom.tooltips.add(@workspaceTiming[0], title: 'The time taken to rebuild the prevoiusly opened editors')
+    atom.tooltips.add(@workspaceTiming[0], title: 'The time taken to rebuild the previously opened editors')
     atom.tooltips.add(@projectTiming[0], title: 'The time taken to rebuild the previously opened buffers')
     atom.tooltips.add(@atomTiming[0], title: 'The time taken to read and parse the stored window state')
 
