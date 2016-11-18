@@ -7,11 +7,6 @@
 
   overflow: auto;
 
-  .list-item {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
   .panels {
     display: flex;
     flex-direction: row;
@@ -31,7 +26,44 @@
     }
   }
 
-  .timing {
-    margin-bottom: 10px;
+  .text-info {
+    margin-bottom: @component-padding;
   }
+
+  .timing,
+  .list-item {
+    display: flex;
+    justify-content: space-between;
+    .inline-block:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .timing {
+    margin-bottom: @component-padding;
+  }
+
+  .list-item {
+    margin-top: @component-padding / 2;;
+    margin-bottom: @component-padding / 2;
+  }
+
+  .package {
+    color: @text-color;
+    &:hover {
+      text-decoration: none;
+      color: @text-color-selected;
+    }
+  }
+  .timecop-line {
+    flex: 1 1 0;
+    margin-right: @component-padding;
+    margin-top: .80em;
+    border-top: 1px dashed fade(@text-color, 20%);
+  }
+
+  .package:hover + .timecop-line {
+    border-color: fade(@text-color, 60%);
+  }
+
 }
