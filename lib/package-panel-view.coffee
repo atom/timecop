@@ -17,6 +17,7 @@ class PackagePanelView extends View
     @list.append $$ ->
       @li class: 'list-item', =>
         @a class: 'inline-block package', 'data-package': pack.name, pack.name
+        @span class: "timecop-line"
         highlightClass = 'highlight-warning'
         highlightClass = 'highlight-error' if pack[timeKey] > 25
         @span class: "inline-block #{highlightClass}", "#{pack[timeKey]}ms"
