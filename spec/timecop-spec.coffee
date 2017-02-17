@@ -59,30 +59,30 @@ describe "Timecop", ->
       jasmine.unspy(atom.packages, 'getLoadedPackages')
 
     it "shows the packages that loaded slowly", ->
-      loadingPanel = timecopView.find(".package-panel:contains(Package Loading)")
-      expect(loadingPanel.text()).toMatch(/1 package took longer than 5ms to load/)
-      expect(loadingPanel.text()).toMatch(/slow-loading-package/)
+      loadingPanel = timecopView.refs.packageLoadingPanel
+      expect(loadingPanel.element.textContent).toMatch(/1 package took longer than 5ms to load/)
+      expect(loadingPanel.element.textContent).toMatch(/slow-loading-package/)
 
-      expect(loadingPanel.text()).not.toMatch(/slow-activating-package/)
-      expect(loadingPanel.text()).not.toMatch(/fast-package/)
+      expect(loadingPanel.element.textContent).not.toMatch(/slow-activating-package/)
+      expect(loadingPanel.element.textContent).not.toMatch(/fast-package/)
 
     it "shows the packages that activated slowly", ->
-      activationPanel = timecopView.find(".package-panel:contains(Package Activation)")
-      expect(activationPanel.text()).toMatch(/2 packages took longer than 5ms to activate/)
-      expect(activationPanel.text()).toMatch(/slow-activating-package-1/)
-      expect(activationPanel.text()).toMatch(/slow-activating-package-2/)
+      activationPanel = timecopView.refs.packageActivationPanel
+      expect(activationPanel.element.textContent).toMatch(/2 packages took longer than 5ms to activate/)
+      expect(activationPanel.element.textContent).toMatch(/slow-activating-package-1/)
+      expect(activationPanel.element.textContent).toMatch(/slow-activating-package-2/)
 
-      expect(activationPanel.text()).not.toMatch(/slow-loading-package/)
-      expect(activationPanel.text()).not.toMatch(/fast-package/)
+      expect(activationPanel.element.textContent).not.toMatch(/slow-loading-package/)
+      expect(activationPanel.element.textContent).not.toMatch(/fast-package/)
 
     it "shows how many files were transpiled from each language", ->
-      cachePanel = timecopView.find(".package-panel:contains(Compile Cache)")
+      cachePanel = timecopView.refs.cacheLoadingPanel
 
-      expect(cachePanel.text()).toMatch /CoffeeScript files compiled\s*8/
-      expect(cachePanel.text()).toMatch /Babel files compiled\s*4/
-      expect(cachePanel.text()).toMatch /Typescript files compiled\s*6/
-      expect(cachePanel.text()).toMatch /CSON files compiled\s*10/
-      expect(cachePanel.text()).toMatch /Less files compiled\s*12/
+      expect(cachePanel.element.textContent).toMatch /CoffeeScript files compiled\s*8/
+      expect(cachePanel.element.textContent).toMatch /Babel files compiled\s*4/
+      expect(cachePanel.element.textContent).toMatch /Typescript files compiled\s*6/
+      expect(cachePanel.element.textContent).toMatch /CSON files compiled\s*10/
+      expect(cachePanel.element.textContent).toMatch /Less files compiled\s*12/
 
 class FakePackage
   constructor: ({@name, @activateTime, @loadTime}) ->
