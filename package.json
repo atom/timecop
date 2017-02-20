@@ -1,6 +1,6 @@
 {
   "name": "timecop",
-  "version": "0.34.0",
+  "version": "0.35.0",
   "description": "Displays information about where time is spent while Atom loads.",
   "main": "./lib/main",
   "repository": "https://github.com/atom/timecop",
