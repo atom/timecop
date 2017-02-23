@@ -12,8 +12,3 @@ module.exports =
   createTimecopView: (state) ->
     TimecopView ?= require './timecop-view'
     new TimecopView(state)
-
-if parseFloat(atom.getVersion()) < 1.7
-  atom.deserializers.add
-    name: 'TimecopView'
-    deserialize: module.exports.createTimecopView.bind(module.exports)
