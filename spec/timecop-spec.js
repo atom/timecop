@@ -5,12 +5,7 @@ const CSON = require(path.join(atom.getLoadSettings().resourcePath, 'node_module
 const {it, fit, ffit, beforeEach, afterEach} = require('./async-spec-helpers') // eslint-disable-line no-unused-vars
 
 describe('Timecop', () => {
-  let workspaceElement = null
-
   beforeEach(async () => {
-    workspaceElement = atom.views.getView(atom.workspace)
-    jasmine.attachToDOM(workspaceElement)
-
     spyOn(CompileCache, 'getCacheStats').andReturn({
       '.js': {hits: 3, misses: 4},
       '.ts': {hits: 5, misses: 6},
