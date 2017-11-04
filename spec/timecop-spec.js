@@ -53,6 +53,7 @@ describe('Timecop', () => {
 
       spyOn(atom.packages, 'getLoadedPackages').andReturn(packages)
       spyOn(atom.packages, 'getActivePackages').andReturn(packages)
+      spyOn(atom.packages, 'hasActivatedInitialPackages').andReturn(true)
 
       timecopView = await atom.workspace.open('atom://timecop')
     })
